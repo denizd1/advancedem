@@ -11,7 +11,8 @@ a=110;
 tm = -5:0.01:-1;
 time=10.^tm;
 [V] = TEM(time,I,sigma,th,a,b);
-loglog(time,V)
+hplot1=loglog(time,V, 'LineWidth',3,'displayname','Numerical');
+grid on
 hold on
 mu=4*pi*10^(-7);
 for j=1:length(time)
@@ -25,7 +26,10 @@ for j=1:length(time)
     
     vv1(j)=-bb*pi*b^2;
 end
-loglog(time,vv1,'--r')
+hplot2=loglog(time,vv1,'--r' ,'LineWidth',3,'displayname','Analytic');
+legend([hplot1,hplot2])
+xlabel('t') 
+ylabel('V') 
 %error
 % (vv1-V)./V*100;
 % plot(time,abs(ans))
