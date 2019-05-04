@@ -11,7 +11,9 @@ a=110;
 tm = -5:0.01:-1;
 time=10.^tm;
 mu=4*pi*10^(-7);
-[V] = TEM(time,I,sigma,th,a,b);
+airflag=0;
+airheight=0;
+[V] = TEM(time,I,sigma,th,a,b,airheight,airflag);
 hplot1=loglog(time,V, 'LineWidth',3,'displayname','Numerical');
 grid on
 hold on

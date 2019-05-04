@@ -1,7 +1,8 @@
-function [V] = TEM(time,I,sigma,th,a,b,airheight,airflag)
+function [V] = TEM(time,I,sigma,th,a,b,airheight,airflag,fixedaem,r)
 load('FilterCoefficients.mat');
 mu=mu0;
 V1=[];
+multipler=[];
 V=zeros(1,length(time));
 if airflag==1
     th(end+1)=airheight;
@@ -29,11 +30,22 @@ for t=1:length(time)
                     Q = (mu/k) * (( k*Q + mu*tanh(k*d)) ...
                         / (k*Q*tanh(k*d)+mu) );
                 end
+                multipler(il)=multipler(il)+s*mu*sigma*r^2/4;
             end
             V1(il,neww)=((Qa*Q)/(Qa+Q))*lambda^2*J1(il);
+            if fixedaem==1
+                V1=lamda^2*J0(il);
+            end
         end
         FrequencyDomainResponse(neww)=I*pi*a*b^2*sum(V1(:,neww))/a;
+        if fixedaem==1
+            FrequencyDomainResponse(neww)=FrequencyDomainResponse(neww)*mu/4;
+        end
+        
     end
     V(t) = sum(FrequencyDomainResponse.*Dgs')*((log(2))/time(t));
+    if fixedaem==1
+        V(t)=V(t)*(s)
+    end
 end
 end

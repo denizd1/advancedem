@@ -11,7 +11,8 @@ hplot1=loglog(realdata(:,2),realdata(:,3)./1000000000, 'LineWidth',3,'displaynam
 hold on
 airflag=0;
 airheight=0;
-[V] = TEM(realdata(:,2),I,sigma,th,a,b,airheight,airflag);
+fixedaem=0;
+[V] = TEM(realdata(:,2),I,sigma,th,a,b,airheight,airflag,);
 hplot2=loglog(realdata(:,2),V,'--r', 'LineWidth',3,'displayname','Synthetic');
 legend([hplot1,hplot2])
 grid on

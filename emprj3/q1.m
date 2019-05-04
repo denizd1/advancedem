@@ -10,7 +10,9 @@ b=10;
 a=110;
 tm = -5:0.01:-1;
 time=10.^tm;
-[V] = TEM(time,I,sigma,th,a,b);
+airflag=0;
+airheight=0;
+[V] = TEM(time,I,sigma,th,a,b,airheight,airflag);
 hplot1=loglog(time,V, 'LineWidth',3,'displayname','Numerical');
 grid on
 hold on
@@ -30,6 +32,9 @@ hplot2=loglog(time,vv1,'--r' ,'LineWidth',3,'displayname','Analytic');
 legend([hplot1,hplot2])
 xlabel('t') 
 ylabel('V') 
+
 %error
-% (vv1-V)./V*100;
-% plot(time,abs(ans))
+% pererror=(vv1-V)./V*100;
+% plot(time,abs(pererror))
+% xlabel('time') 
+% ylabel('error (%)') 
